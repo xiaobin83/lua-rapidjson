@@ -25,3 +25,4 @@ rapidjson/package.json
 rapidjson/rapidjson.autopkg
 rapidjson/travis-doxygen.sh
 _build_*
+.vscode*

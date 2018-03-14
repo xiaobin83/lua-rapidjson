@@ -412,31 +412,29 @@ static const luaL_Reg methods[] = {
 };
 
 extern "C" {
+	LUALIB_API int luaopen_rapidjson(lua_State* L)
+	{
+		lua_newtable(L); // [rapidjson]
 
-LUALIB_API int luaopen_rapidjson(lua_State* L)
-{
-	lua_newtable(L); // [rapidjson]
+		luax::setfuncs(L, methods); // [rapidjson]
 
-	luax::setfuncs(L, methods); // [rapidjson]
+		lua_pushliteral(L, "rapidjson"); // [rapidjson, name]
+		lua_setfield(L, -2, "_NAME"); // [rapidjson]
 
-	lua_pushliteral(L, "rapidjson"); // [rapidjson, name]
-	lua_setfield(L, -2, "_NAME"); // [rapidjson]
+		lua_pushliteral(L, LUA_RAPIDJSON_VERSION); // [rapidjson, version]
+		lua_setfield(L, -2, "_VERSION"); // [rapidjson]
 
-	lua_pushliteral(L, LUA_RAPIDJSON_VERSION); // [rapidjson, version]
-	lua_setfield(L, -2, "_VERSION"); // [rapidjson]
-
-	lua_getfield(L, -1, "null"); // [rapidjson, json.null]
-	values::nullref = luaL_ref(L, LUA_REGISTRYINDEX); // [rapidjson]
+		lua_getfield(L, -1, "null"); // [rapidjson, json.null]
+		values::nullref = luaL_ref(L, LUA_REGISTRYINDEX); // [rapidjson]
 
 
-	createSharedMeta(L, "json.object", "object");
-	createSharedMeta(L, "json.array", "array");
+		createSharedMeta(L, "json.object", "object");
+		createSharedMeta(L, "json.array", "array");
 
-	Userdata<Document>::luaopen(L);
-	Userdata<SchemaDocument>::luaopen(L);
-	Userdata<SchemaValidator>::luaopen(L);
+		Userdata<Document>::luaopen(L);
+		Userdata<SchemaDocument>::luaopen(L);
+		Userdata<SchemaValidator>::luaopen(L);
 
-	return 1;
-}
-
+		return 1;
+	}
 }

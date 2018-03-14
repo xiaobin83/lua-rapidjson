@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.1)
 
 project(lua_rapidjson CXX)
 
-#set(CMAKE_VERBOSE_MAKEFILE 1)
 set(CMAKE_CXX_STANDARD 11)
 
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
@@ -15,11 +14,13 @@ include_directories(
   	"${CMAKE_SOURCE_DIR}/rapidjson/include")
 link_directories("${CMAKE_SOURCE_DIR}/${LUA_LIB_DIR}")
 
-add_library(librapidjson MODULE ${SOURCES})
+if(WIN32)
+	add_definitions(-DLUA_BUILD_AS_DLL -DLUA_LIB)
+endif()
+
+add_library(librapidjson ${SOURCES})
 target_link_libraries(librapidjson lua)
-
-
-set_target_properties(librapidjson PROPERTIES OUTPUT_NAME rapidjson CLEAN_DIRECT_OUTPUT 1 )
+set_target_properties(librapidjson PROPERTIES OUTPUT_NAME rapidjson CLEAN_DIRECT_OUTPUT 1)
 
 if(IPHONEOS_DEPLOYMENT_TARGET)
 	set_xcode_property(librapidjson IPHONEOS_DEPLOYMENT_TARGET ${IPHONEOS_DEPLOYMENT_TARGET})
