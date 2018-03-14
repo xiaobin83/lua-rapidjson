@@ -32,6 +32,11 @@
 #include "luax.hpp"
 #include "file.hpp"
 
+
+#include "Document.cpp"
+#include "Schema.cpp"
+#include "values.cpp"
+
 using namespace rapidjson;
 
 #ifndef LUA_RAPIDJSON_VERSION
