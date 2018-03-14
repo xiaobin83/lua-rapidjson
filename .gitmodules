@@ -4,3 +4,6 @@
 [submodule "cmake/android"]
 	path = cmake/android
 	url = https://github.com/xiaobin83/android-cmake.git
+[submodule "lua-prebuilt"]
+	path = lua-prebuilt
+	url = https://github.com/xiaobin83/lua-prebuilt
